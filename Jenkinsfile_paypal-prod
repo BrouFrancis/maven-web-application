@@ -1,0 +1,36 @@
+node{
+	def mavenHome = tool name: 'maven3.8.6'
+	stage('1CloneCode'){
+	 git "https://github.com/BrouFrancis/maven-web-application"
+	 }
+	stage('2test&build'){
+	sh "${mavenHome}/bin/mvn install"
+	}
+  /*
+	stage('3CodeQuality'){
+	sh "${mavenHome}/bin/mvn sonar:sonar"
+	}
+	stage('4UploadArtifacts'){
+	sh "${mavenHome}/bin/mvn deploy"
+	}
+	stage('5deploy_uat'){
+	deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials3', path: '', url: 'http://18.191.48.31:8080/')], contextPath: null, war: 'target/*war'
+	}
+	stage('6Approval'){
+	timeout(time:5, unit: 'MINUTES'){
+	     input message: 'Application ready for deployment, please review and approve'
+	}
+}
+	stage('7deploy_prod'){
+	deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials3', path: '', url: 'http://18.191.48.31:8080/')], contextPath: null, war: 'target/*war'
+	}
+	stage('8Notification'){
+	// pipeline Synstax
+	emailext body: '''Build status for frontend application.
+
+
+Regards,
+Brou Francis Koli''', recipientProviders: [buildUser(), developers(), contributor()], subject: 'Build Status', to: 'broukolifrancis@gmail.com'
+	}
+  */
+}
